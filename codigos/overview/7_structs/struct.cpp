@@ -18,7 +18,9 @@ struct Empregado {
 };
 
 void imprime_info(Empregado empregado) {
-  cout << "ID: " << empregado.id
+  empregado.nome = "Matias";
+
+    cout << "ID: " << empregado.id
     << "\nNome: " << empregado.nome
     << "\nIdade: " << empregado.idade
     << "\nSalario: " << empregado.salario << endl;
@@ -27,6 +29,8 @@ void imprime_info(Empregado empregado) {
 int main() {
   Empregado issac(1111, "Clidenor Issac", 26, 10000);
   imprime_info(issac);
+
+  cout << issac.nome << endl;
 
   return 0;
 }
