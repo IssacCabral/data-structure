@@ -59,6 +59,19 @@ class MyVector {
       return index >= size ? nullopt : optional{contactList[index]};
     }
 
+    bool remove(unsigned int index) {
+      if(index >= size) {
+        return false;
+      }
+
+      for(int i = index; i < size - 1; i++) {
+        contactList[i] = contactList[i + 1];
+      }
+
+      size--;
+      return true;
+    }
+
     unsigned int length() {
       return size;
     }
@@ -75,6 +88,7 @@ int main() {
     cout << "1 - Adicionar novo contato\n";
     cout << "2 - Listar todos os contatos\n";
     cout << "3 - Encontrar um contato\n";
+    cout << "4 - Excluir um contato\n";
     cout << "0 - Sair do programa\n";
 
     cin >> option;
@@ -90,6 +104,7 @@ int main() {
         myVector.add(contact);
         break;        
       }
+
       case 2: {
         clearScreen();
 
@@ -109,6 +124,7 @@ int main() {
         awaitUser();
         break;        
       }
+
       case 3: {
         clearScreen();
         
@@ -133,9 +149,27 @@ int main() {
         break;
       }
 
+      case 4: {
+        clearScreen();
+
+        if(myVector.length() == 0) {
+          cout << "Lista de contatos vazia\n";
+          awaitUser();
+          break;
+        }         
+
+        unsigned int index;
+        cin >> index;
+
+        myVector.remove(index);
+
+        break;
+      }
+    
       case 0:
         cout << "Saindo do programa...\n";
         break;
+
       default:
         cout << "Opção inválida\n";
         break;
