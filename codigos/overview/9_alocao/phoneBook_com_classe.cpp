@@ -18,6 +18,7 @@ void awaitUser() {
   cin.get(); 
 }
 
+template<typename T>
 class MyVector {
   private:
     const unsigned short INITIAL_CAPACITY = 2;
@@ -25,38 +26,42 @@ class MyVector {
     unsigned int size;
     int capacity;
     
-    Contact *contactList;
+    T *elementList;
 
   public:
     MyVector() {
       size = 0;
       capacity = INITIAL_CAPACITY;
-      contactList = new Contact[capacity];
+      elementList = new T[capacity];
     }
 
-    void add(Contact contact) {
+    ~MyVector() {
+      delete[] elementList;
+    }
+
+    void add(T element) {
       if (size == capacity) {
         capacity *= 2;
-        Contact *newContactList = new Contact[capacity];
+        T *newElementList = new T[capacity];
 
         for(int i = 0; i < size; i++) {
-          newContactList[i] = contactList[i];
+          newElementList[i] = elementList[i];
         }
 
-        delete[] contactList;
-        contactList = newContactList;
+        delete[] elementList;
+        elementList = newElementList;
       }
 
-      contactList[size] = contact;
+      elementList[size] = element;
       size++;
     }
 
-    Contact* listContacts() {
-      return contactList;
+    T* getAll() {
+      return elementList;
     }
 
-    optional<Contact> find(unsigned int index) {
-      return index >= size ? nullopt : optional{contactList[index]};
+    optional<T> find(unsigned int index) {
+      return index >= size ? nullopt : optional{elementList[index]};
     }
 
     bool remove(unsigned int index) {
@@ -65,7 +70,7 @@ class MyVector {
       }
 
       for(int i = index; i < size - 1; i++) {
-        contactList[i] = contactList[i + 1];
+        elementList[i] = elementList[i + 1];
       }
 
       size--;
@@ -78,7 +83,7 @@ class MyVector {
 };
 
 int main() {
-  MyVector myVector;
+  MyVector<Contact> myVector;
   int option;
 
   do {
@@ -114,7 +119,7 @@ int main() {
           break;
         } 
 
-        Contact *contactList = myVector.listContacts();
+        Contact *contactList = myVector.getAll();
         
         for (int i = 0; i < myVector.length(); i++) {
           Contact contact = contactList[i];
