@@ -1,4 +1,5 @@
 #include <iostream>
+#include <optional>
 
 using namespace std;
 
@@ -21,7 +22,7 @@ class MyVector {
   private:
     const unsigned short INITIAL_CAPACITY = 2;
     
-    int size;
+    unsigned int size;
     int capacity;
     
     Contact *contactList;
@@ -50,19 +51,17 @@ class MyVector {
       size++;
     }
 
-    void listContacts() {
-      if(size == 0) {
-        cout << "Lista de contatos vazia\n";
-      } else {
-        for (int i = 0; i < size; i++) {
-          Contact contact = contactList[i];
-          cout << "Contato[" << i << "]: Nome: " << contact.name << " Numero: " << contact.number << endl;
-        }
-      }
-      awaitUser();
+    Contact* listContacts() {
+      return contactList;
     }
 
-    
+    optional<Contact> find(unsigned int index) {
+      return index >= size ? nullopt : optional{contactList[index]};
+    }
+
+    unsigned int length() {
+      return size;
+    }
 };
 
 int main() {
@@ -79,26 +78,61 @@ int main() {
     cout << "0 - Sair do programa\n";
 
     cin >> option;
-    Contact contact;
-
+    
     switch(option) {
-      case 1:
+      case 1: {
         clearScreen();
         
+        Contact contact;
         cin >> contact.name;
         cin >> contact.number;    
-  
+        
         myVector.add(contact);
-        break;
-      case 2:
+        break;        
+      }
+      case 2: {
         clearScreen();
 
-        myVector.listContacts();
+        if(myVector.length() == 0) {
+          cout << "Lista de contatos vazia\n";
+          awaitUser();
+          break;
+        } 
 
-        break;
-      case 3:
+        Contact *contactList = myVector.listContacts();
+        
+        for (int i = 0; i < myVector.length(); i++) {
+          Contact contact = contactList[i];
+          cout << "Contato[" << i << "]: Nome: " << contact.name << " Numero: " << contact.number << endl;
+        }        
+
+        awaitUser();
+        break;        
+      }
+      case 3: {
         clearScreen();
+        
+        if(myVector.length() == 0) {
+          cout << "Lista de contatos vazia\n";
+          awaitUser();
+          break;
+        } 
+
+        unsigned int index;
+        cin >> index;
+
+        optional<Contact> contact = myVector.find(index);
+
+        if(contact != nullopt) {
+          cout << "Nome: " << contact.value().name << " Numero: " << contact.value().number << endl;
+        } else {
+          cout << "Contato não encontrado" << endl;
+        }
+
+        awaitUser();
         break;
+      }
+
       case 0:
         cout << "Saindo do programa...\n";
         break;
