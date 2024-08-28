@@ -13,8 +13,8 @@
  * * enquanto i < L.tamanho faça
  * *  se L[i] != x então:
  * *    L[indexEscrita] = L[i]
- * *    i++
  * *    indexEscrita++
+ * *  i++
  * * retorne L;
  */
 
