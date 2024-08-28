@@ -2,6 +2,37 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
+// * complexidade: O(n^2)
+
+// * pseudocódigo
+/**
+ * ALGORITMO: removerOcorrencias
+ * ENTRADA: Lista sequencial L
+ * SAIDA: Lista Sequencial L', sem nenhum elemento repetido
+ * 
+ * * se L.tamanho <= 1 então:
+ * *  retorne L;
+ * 
+ * * indexEscrita = 0
+ * 
+ * * enquanto i < L.tamanho faça:
+ * *  j = 0
+ * 
+ * *  enquanto j < indexEscrita faça:
+ * *    se L[i] == L[j] então: // encontrou um duplicado
+ * *      saia do loop
+ * *    j++
+ * *  
+ * *  se j == indexEscrita então:
+ * *    L[indexEscrita] = L[i]
+ * *    indexEscrita++
+ * 
+ * *  i++
+ * 
+ * * retorne L  
+ * *  
+ */
+
 void removeOccurrences(int list[], int *length) {
   if (*length <= 1) return exit(1);
 
