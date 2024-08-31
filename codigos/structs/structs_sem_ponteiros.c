@@ -2,6 +2,27 @@
 #include <stdlib.h>
 #include <string.h>
 
+/**
+ * 
+ * Memory (Stack):
+
+    User (User)
+    ------------------
+    | name[0]                 | (0x7fff39970cc0) 
+    | name[1]                 | 
+    | ...                     | 
+    | name[49]                | (0x7fff39970cf3) 
+    | age (4 bytes)           | (0x7fff39970cf4) 
+    | address (54 bytes)      | (0x7fff39970cf8) 
+    |-------------------------|
+    | houseNumber (4 bytes)   | (0x7fff39970cf8) 
+    | street[0]               | 
+    | street[1]               | 
+    | ...                     | 
+    | street[49]              | (0x7fff39970d3f) 
+    ------------------
+ */
+
 typedef struct Address {
   int houseNumber;
   char street[50];
