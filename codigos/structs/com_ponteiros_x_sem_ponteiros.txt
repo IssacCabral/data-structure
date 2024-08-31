@@ -1,0 +1,27 @@
+1. ALOCAÇÃO DE MEMÓRIA
+Alocação na Stack (SEM PONTEIRO): A struct é totalmente alocada na stack, 
+o que pode ser rápido e conveniente, mas aumenta o uso da stack. Em casos 
+de structs grandes, isso pode levar ao estouro da stack.
+
+Alocação na Heap (COM PONTEIRO): O ponteiro em si ocupa apenas 8 bytes 
+(em sistemas de 64 bits) na stack, enquanto os dados reais são armazenados 
+na heap.
+
+2. PERFORMANCE
+Ponteiro para Struct:
+
+Mais Custos de Indireção: Acessar membros da struct requer um nível 
+adicional de indireção (desreferenciar o ponteiro), o que pode ser 
+ligeiramente mais lento, embora essa diferença seja geralmente mínima.
+
+Menos Cópias: Passar ponteiros para funções evita a cópia de toda a struct, 
+o que é vantajoso para structs grandes, reduzindo o overhead de performance.
+
+Struct por Valor:
+
+Cópia Completa: Quando uma struct é passada por valor para uma função, 
+uma cópia inteira da struct é feita. Para structs pequenas, isso pode ser rápido, 
+mas para structs grandes, pode ser custoso em termos de tempo e espaço.
+
+Sem Indireção: Acessar membros da struct é direto e pode ser mais rápido, 
+pois não envolve a desreferenciação de ponteiros.
