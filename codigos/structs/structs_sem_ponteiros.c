@@ -19,9 +19,22 @@ void printUser(User user) {
 
 int main() {
   Address address = {2020, "Avenida Francisco Almeida Pinheiro"};
-  User user = {"Issac", 27, address};
+  // ? aqui abaixo, address é uma cópia da variável address, por isso que o endereço de memoria de address, é diferente
+  // ? do endereço de memória de user.address
+  // ? conclusão: &user.address != &address 
+  User user = {"Issac", 27, address}; 
 
-  printUser(user);
+  printf("Endereço da variavel user: %p\n", &user);
+  printf("Endereço da propriedade name: %p\n", &user.name);
+  printf("Endereço da propriedade age: %p\n", &user.age);
+  printf("Endereço da propriedade address: %p\n", &user.address);
+  printf("Endereço da propriedade houseNumber: %p\n", &user.address.houseNumber);
+  printf("Endereço da propriedade street: %p\n", &user.address.street);
+  printf("Endereço da variavel address fora do user: %p\n", &address);
+  printf("Endereço da propriedade houseNumber fora do user: %p\n", &address.houseNumber);
+  printf("Endereço da propriedade street fora do user: %p\n", &address.street);
+
+  // printUser(user);
 
   return 0;
 }
