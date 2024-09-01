@@ -33,39 +33,38 @@
  * *  
  */
 
-void removeOccurrences(int list[], int *length) {
-  if (*length <= 1) return exit(1);
+void removeOccurrences(int *L, int *length) {
+  if (*length <= 1) exit(1);
 
   int writeIndex = 0;
-  
+
   for (int i = 0; i < *length; i++) {
-    int j;
-    for (j = 0; j < writeIndex; j++) {
-      if(list[i] == list[j]) {
-        break; // Encontrou um duplicado, saia do loop
+    int isDuplicated = 0;
+    for (int j = 0; j < writeIndex; j++) {
+      if (L[j] == L[i]) {
+        isDuplicated = 1;
+        break;
       }
     }
 
-    if (j == writeIndex) {
-      // não encontrou duplicado, adiciona o elemento
-      list[writeIndex] = list[i];
-      writeIndex++; // 6
+    if (!isDuplicated) {
+      L[writeIndex] = L[i];
+      writeIndex++;
     }
   }
 
   *length = writeIndex;
 }
 
-void printList(int list[], int length) {
+void printList(int *L, int length) {
   for (int i = 0; i < length; i++) {
-    printf("%d ", list[i]);
+    printf("%d ", L[i]);
   }
   printf("\n");
 }
 
 int main() {
-  // int list[] = {0, 2, 3, 4, 5, 2, 4, 0, 7};
-  int list[] = {1, 2, 3, 4, 5, 2, 4, 0, 7};
+  int list[] = {1, 2, 3, 4, 1, 5, 2, 4, 0, 7}; // * [1, 2, 3, 4, 5, 0, 7]
   int length = sizeof(list) / sizeof(list[0]);
 
   removeOccurrences(list, &length);
