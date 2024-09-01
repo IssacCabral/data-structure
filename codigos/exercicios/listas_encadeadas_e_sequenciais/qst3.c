@@ -5,6 +5,26 @@
  * * pois só precisamos comparar o elemento atual com o próximo elemento, sem a necessidade de um outro loop interno.
  * * reduzindo assim, a complexidade.
  * * NOVA COMPLEXIDADE: O(n) 
+ * 
+ * * pseudocódigo
+ * 
+ * ALGORITMO: removerOcorrencias
+ * ENTRADA: Lista sequencial L, ordenada, com elementos duplicados
+ * SAIDA: Lista Sequencial L', ordenada, e sem nenhum elemento repetido
+ * 
+ * * se L.tamanho <= 1 então:
+ * *  retorne L;
+ * 
+ * * indexEscrita = 0
+ * * i = 0
+ * 
+ * * enquanto i < L.tamanho - 1 faça:
+ * *  se L[i] != L[i + 1] então:
+ * *    L[indexEscrita] = L[i]
+ * *    indexEscrita++
+ * *  i++
+ * 
+ * * L[indexEscrita] = L[L.tamanho - 1]  
  */
 
 void removeSortedListOccurrences(int *L, int *length) {
