@@ -14,34 +14,38 @@
  * *  retorne L;
  * 
  * * indexEscrita = 0
+ * * i = 0
  * 
  * * enquanto i < L.tamanho faça:
+ * *  encontrouDuplicado = false
  * *  j = 0
  * 
  * *  enquanto j < indexEscrita faça:
  * *    se L[i] == L[j] então: // encontrou um duplicado
+ * *      encontrouDuplicado = true
  * *      saia do loop
  * *    j++
  * *  
- * *  se j == indexEscrita então:
+ * *  se !encontrouDuplicado então:
  * *    L[indexEscrita] = L[i]
  * *    indexEscrita++
- * 
  * *  i++
+ * 
+ * * L.tamanho = indexEscrita
  * 
  * * retorne L  
  * *  
  */
 
 void removeOccurrences(int *L, int *length) {
-  if (*length <= 1) exit(1);
+  if (*length <= 1) return;
 
   int writeIndex = 0;
 
   for (int i = 0; i < *length; i++) {
     int isDuplicated = 0;
     for (int j = 0; j < writeIndex; j++) {
-      if (L[j] == L[i]) {
+      if (L[i] == L[j]) {
         isDuplicated = 1;
         break;
       }
