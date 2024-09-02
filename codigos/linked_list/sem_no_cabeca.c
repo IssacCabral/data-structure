@@ -47,6 +47,7 @@ void addLast(LinkedList *list, int data) {
   list->length++;
 }
 
+// remove um elemento específico
 bool removeElement(LinkedList *list, int element) {
   Node *current = list->first;
   Node *previous = NULL;
