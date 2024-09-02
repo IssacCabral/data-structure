@@ -67,8 +67,14 @@ void removeLast(LinkedList *L) {
   (L->length)--;
 }
 
-void removeInicio(LinkedList *L) {
+void removeBegin(LinkedList *L) {
+  if (L->first == NULL) return; // lista vazia, nada para remover
 
+  Node *elementToRemove = L->first;
+  L->first = L->first->next;
+  
+  free(elementToRemove);
+  (L->length)--;
 }
 
 void displayList(LinkedList *L) {
@@ -85,10 +91,20 @@ int main() {
   LinkedList *list = createLinkedList();
 
   addLast(list, 1);
+  addLast(list, 3);
+  addLast(list, 7);
+  addLast(list, 9);
+  addLast(list, 2);
 
   // displayList(list);
 
-  removeLast(list);
+  // removeLast(list);
+  removeBegin(list);
+  removeBegin(list);
+  removeBegin(list);
+  removeBegin(list);
+  removeBegin(list);
+
   displayList(list);
 
   return 0;
