@@ -47,6 +47,7 @@ void addLast(LinkedList *L, int key) {
   (L->length)++;
 }
 
+// * se a ordem não importa, adicionar no início é mais eficiente que adicionar no final.
 void addBegin(LinkedList *list, int key) {
   Node *newNode = createNode(key);
 
@@ -99,20 +100,20 @@ void displayList(LinkedList *L) {
 int main() {
   LinkedList *list = createLinkedList();
 
-  addLast(list, 1);
-  addLast(list, 3);
-  addLast(list, 7);
-  addLast(list, 9);
-  addLast(list, 2);
+  addBegin(list, 1);
+  addBegin(list, 3);
+  addBegin(list, 7);
+  addBegin(list, 9);
+  addBegin(list, 2);
 
   // displayList(list);
 
   // removeLast(list);
-  removeBegin(list);
-  removeBegin(list);
-  removeBegin(list);
-  removeBegin(list);
-  removeBegin(list);
+  // removeBegin(list);
+  // removeBegin(list);
+  // removeBegin(list);
+  // removeBegin(list);
+  // removeBegin(list);
 
   displayList(list);
 
