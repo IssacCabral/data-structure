@@ -47,6 +47,15 @@ void addLast(LinkedList *L, int key) {
   (L->length)++;
 }
 
+void addBegin(LinkedList *list, int key) {
+  Node *newNode = createNode(key);
+
+  newNode->next = list->first;
+  list->first = newNode;
+
+  (list->length)++;
+}
+
 void removeLast(LinkedList *L) {
   if (L->first == NULL) return; // lista vazia, nada para remover
 
