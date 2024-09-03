@@ -1,6 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/**
+ * * com o nó cabeça, ficou mais simples a adição de um novo elemento
+ * * no final, bem como a remoção de um elemento no final.
+ */
+
 typedef struct Node {
   int key;
   struct Node* next;
