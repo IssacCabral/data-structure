@@ -8,18 +8,14 @@
  * ENTRADA: Nó cabeça V de uma lista encadeada ordenada, elemento X para inserir
  * OBS: deve ser inserido o elemento X de maneira ordenada na lista encadeada
  * 
- * * novoNo = aloca_memoria(No)
- * * novoNo.chave = X
- * * novoNo.proximo = NULL
+ * *  novoNo = aloca_memoria(No)
+ * *  novoNo.chave = X
+ * *  novoNo.proximo = NULL
  * 
- * * SE V.proximo = NULL OU V.proximo.chave > X ENTÃO:
- * *  novoNo.proximo = V.proximo
- * *  V.proximo = novoNo
- * * SENÃO 
  * *  atual = V
- * *  ENQUANTO atual.proximo != NULL E atual.proximo.chave <= X FAÇA:
+ * *  enquanto atual.proximo != NULL E atual.proximo.chave <= x faça:
  * *    atual = atual.proximo
- * *  
+ * 
  * *  novoNo.proximo = atual.proximo
  * *  atual.proximo = novoNo
  */
@@ -57,21 +53,14 @@ Node* createNode(int data) {
 
 void includeOrdered(LinkedList* list, int x) {
   Node* newNode = createNode(x);
+  Node* current = list->headNode;
 
-  // se a lista ta vazia, ou o novo nó deve ser o primeiro
-  if (list->headNode->next == NULL || list->headNode->next->data > x) {
-    newNode->next = list->headNode->next;
-    list->headNode->next = newNode;
-  } else {
-    Node* current = list->headNode;
-
-    while (current->next != NULL && current->next->data <= x) {
-      current = current->next;
-    }
-
-    newNode->next = current->next;
-    current->next = newNode;
+  while (current->next != NULL && current->next->data <= x) {
+    current = current->next;
   }
+
+  newNode->next = current->next;
+  current->next = newNode;
 
   (list->size)++;
 }
