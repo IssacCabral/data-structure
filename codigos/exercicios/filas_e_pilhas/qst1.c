@@ -4,26 +4,44 @@
 
 /**
  * ALGORITMO: removeRepetidos
- * ENTRADA: nó cabeça V de uma pilha encadeada, e remove os nós com chaves repetidas.
- * SAIDA: pilha sem valores repetidos
- * COMPLEXIDADE: O(n)
+ * ENTRADA: nó cabeça V de uma pilha, e remove os elementos repetidos
+ * mantendo apenas o que está mais acima da pilha
+ * COMPLEXIDADE: O(n^2)
  * 
- * *  SE V.proximo = NULL ENTÃO:
+ * *  se V.proximo == NULL então:
  * *    retorne // lista vazia
- * *  
- * *  encontrados[1000] = {false} // preenche todo o vetor com false
- * * 
+ * 
+ * *  contador = 0
+ * *  iterador = V.proximo
+ * 
+ * *  enquanto iterador != NULL faça:
+ * *    contador++
+ * *    iterador = iterador.proximo
+ * 
+ * *  encontrados = aloca_memoria(int * contador)
+ * *  tamanhoEncontrados = 0
+ * 
  * *  atual = V.proximo
  * *  anterior = V
  * 
- * *  ENQUANTO atual != NULL FAÇA:
- * *    SE encontrados[atual.valor] ENTÃO:
- * *      anterior.proximo = atual.proximo
+ * *  enquanto atual != NULL faça:
+ * *    jaEncontrado = false
+ * *    i = 0
+ * 
+ * *    enquanto i < tamanhoEncontrados faça:
+ * *      se encontrados[i] == atual.chave então:
+ * *        jaEncontrado = true
+ * *        saia do laço
+ * *      i++
+ * 
+ * *    se jaEncontrado então: // se já encontrou, remove o nó
  * *      temp = atual
+ * *      anterior.proximo = atual.proximo
  * *      atual = atual.proximo
  * *      libera_memoria(temp)
- * *    SENÃO:
- * *      encontrados[atual.valor] = true
+ * *    senão // se não encontrou, então adiciona no array
+ * *      encontrados[tamanhoEncontrados] = atual.chave
+ * *      tamanhoEncontrados++
  * *      anterior = atual
  * *      atual = atual.proximo
  */
@@ -88,7 +106,7 @@ void displayStack(Stack* stack) {
   printf("\n");
 }
 
-void removeRepeated2(Stack* stack) {
+void removeRepeated(Stack* stack) {
   if(stack->headNode->next == NULL) {
     return;
   }
@@ -121,6 +139,7 @@ void removeRepeated2(Stack* stack) {
       Node* temp = current;
       prev->next = current->next;
       current = current->next;
+      free(temp);
     } else { //se não encontrou, então adiciona no array
       found[foundSize] = current->data;
       foundSize++;
@@ -145,7 +164,7 @@ int main () {
 
   displayStack(stack);
 
-  removeRepeated2(stack);
+  removeRepeated(stack);
 
   displayStack(stack);
 
