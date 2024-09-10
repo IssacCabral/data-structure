@@ -88,27 +88,48 @@ void displayStack(Stack* stack) {
   printf("\n");
 }
 
-void removeRepeated(Stack* stack) {
-  if (stack->headNode->next == NULL) return; // lista vazia
+void removeRepeated2(Stack* stack) {
+  if(stack->headNode->next == NULL) {
+    return;
+  }
 
-  bool found[1000] = {false};
+  int count = 0;
+  Node* iterator = stack->headNode->next;
+
+  while(iterator != NULL) {
+    count++;
+    iterator = iterator->next;
+  }
+
+  int* found = (int*) malloc(sizeof(int) * count);
+  int foundSize = 0;
 
   Node* current = stack->headNode->next;
   Node* prev = stack->headNode;
-
+  
   while (current != NULL) {
-    if (found[current->data]) { // se já encontramos o valor antes, removemos o nó atual
-      prev->next = current->next;
+    bool alreadyFound = false;
+    
+    for (int i = 0; i < foundSize; i++) {
+      if (found[i] == current->data) {
+        alreadyFound = true;
+        break;
+      }
+    }
+
+    if (alreadyFound) {// se ja encontrou, então remove o nó
       Node* temp = current;
+      prev->next = current->next;
       current = current->next;
-      free(temp);
-      (stack->size)--;
-    } else {
-      found[current->data] = true;
+    } else { //se não encontrou, então adiciona no array
+      found[foundSize] = current->data;
+      foundSize++;
       prev = current;
       current = current->next;
     }
   }
+
+  free(found);
 }
 
 int main () {
@@ -124,7 +145,7 @@ int main () {
 
   displayStack(stack);
 
-  removeRepeated(stack);
+  removeRepeated2(stack);
 
   displayStack(stack);
 
