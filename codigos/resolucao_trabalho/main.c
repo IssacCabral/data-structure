@@ -65,5 +65,8 @@ int main() {
 
   list(studentList);
 
+  free(studentList->data);
+  free(studentList);
+
   return 0;
 }
