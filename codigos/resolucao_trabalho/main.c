@@ -64,6 +64,40 @@ bool removeStudent(StudentList* studentList, char* registration) {
   return false;
 }
 
+void swap(StudentList* studentList, int i, int j) {
+  Student temp = studentList->data[i];
+  studentList->data[i] = studentList->data[j];
+  studentList->data[j] = temp;
+}
+
+int findMinorIndex(StudentList* studentList, int start, int length) {
+  int minorIndex = start;
+  Student studentWithMinorFinalAverage = studentList->data[minorIndex];
+
+  for (int i = start + 1; i < length; i++) {
+    Student student = studentList->data[i];
+    if (student.finalAverage < studentWithMinorFinalAverage.finalAverage) {
+      minorIndex = i;
+    }
+  }
+
+  return minorIndex;
+}
+
+void selectionSort(StudentList* studentList, int start) {
+  if (start >= studentList->length - 1) {
+    return;
+  }
+
+  int minorIndex = findMinorIndex(studentList, start, studentList->length);
+
+  if (minorIndex != start) {
+    swap(studentList, start, minorIndex);
+  }
+
+  selectionSort(studentList, start + 1);
+}
+
 void list(StudentList* studentList) {
   for (int i = 0; i < studentList->length; i++) {
     Student student = studentList->data[i];
@@ -74,17 +108,19 @@ void list(StudentList* studentList) {
 int main() {
   StudentList* studentList = createStudentList(10);
 
-  insert(studentList, "001", "Maria Alencar", 7.89);
-  insert(studentList, "002", "Pereira Mathias", 7.89);
-  insert(studentList, "003", "Minato Usumaki", 7.89);
-  insert(studentList, "004", "José Arimateia", 7.89);
-  insert(studentList, "005", "Minouri", 7.89);
-  insert(studentList, "006", "Melissa", 7.89);
+  insert(studentList, "001", "Maria Alencar", 10);
+  insert(studentList, "002", "Pereira Mathias", 1.56);
+  insert(studentList, "003", "Minato Usumaki", 5.78);
+  insert(studentList, "004", "José Arimateia", 2.90);
+  insert(studentList, "005", "Minouri", 2.91);
+  insert(studentList, "006", "Melissa", 1.34);
 
-  list(studentList);
+  // list(studentList);
 
   removeStudent(studentList, "001");
+  // list(studentList);
 
+  selectionSort(studentList, 0);
   list(studentList);
 
   free(studentList->data);
