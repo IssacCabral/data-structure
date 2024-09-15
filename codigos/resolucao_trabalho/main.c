@@ -131,6 +131,28 @@ void list(StudentList* studentList) {
   }
 }
 
+Student findByRegistration(StudentList* studentList, int registration, int low, int hight) {
+  if (low > hight) {
+    Student notFound;
+    notFound.registration = -1;
+    return notFound;
+  }
+
+  int mid = low + (hight - low) / 2;
+
+  if (studentList->data[mid].registration == registration) {
+    return studentList->data[mid];
+  }
+
+  // buscar no lado esquerdo
+  if (studentList->data[mid].registration > registration) {
+    return findByRegistration(studentList, registration, low, mid - 1);
+  }
+
+  // buscar no lado direito
+  return findByRegistration(studentList, registration, mid + 1, hight);
+}
+
 int main() {
   StudentList* studentList = createStudentList(10);
 
@@ -146,9 +168,18 @@ int main() {
   // removeStudent(studentList, 1);
   // list(studentList);
 
-  selectionSortFinalAverage(studentList, 0);
-  // selectionSortRegistration(studentList, 0);
-  list(studentList);
+  // selectionSortFinalAverage(studentList, 0);
+  selectionSortRegistration(studentList, 0);
+  // list(studentList);
+
+  int registrationToFind = 0;
+  Student student = findByRegistration(studentList, registrationToFind, 0, studentList->length - 1);
+
+  if (student.registration != -1) {
+    printf("Aluno encontrado: %s, Matrícula: %d, Média Final: %.2f\n", student.name, student.registration, student.finalAverage);
+  } else {
+    printf("Aluno com matrícula %d não encontrado.\n", registrationToFind);
+  }
 
   free(studentList->data);
   free(studentList);
