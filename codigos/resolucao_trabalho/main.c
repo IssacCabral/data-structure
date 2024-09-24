@@ -4,9 +4,9 @@
 #include <stdbool.h>
 
 typedef struct Student {
-  int registration;
-  char name[50];
-  float finalAverage;
+  int registration; // matricula
+  char name[50]; // nome
+  float finalAverage; // média final
 } Student;
 
 typedef struct StudentList {
