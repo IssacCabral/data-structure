@@ -11,8 +11,8 @@ typedef struct Student {
 
 typedef struct StudentList {
   Student* data;
-  int length;
-  int max_capacity;
+  int length; // tamanho atual
+  int max_capacity; // capacidade máxima
 } StudentList;
 
 Student createStudent(int registration, char* name, float finalAverage) {
