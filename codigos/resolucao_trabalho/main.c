@@ -46,6 +46,9 @@ void insert(StudentList* studentList, int registration, char* name, float finalA
   studentList->length++;
 }
 
+// * remove estudante pela matrícula
+// * se encontrou, move uma posição para trás, todo elemento que 
+// * está após o elemento encontrado
 bool removeStudent(StudentList* studentList, int registration) {
   for (int i = 0; i < studentList->length; i++) {
     if (studentList->data[i].registration == registration) {
@@ -62,6 +65,13 @@ bool removeStudent(StudentList* studentList, int registration) {
   }
 
   return false;
+}
+
+void list(StudentList* studentList) {
+  for (int i = 0; i < studentList->length; i++) {
+    Student student = studentList->data[i];
+    printf("Aluno: %s, Matrícula: %d, Média Final: %.2f\n", student.name, student.registration, student.finalAverage);
+  }
 }
 
 void swap(StudentList* studentList, int i, int j) {
@@ -124,13 +134,6 @@ void selectionSortRegistration(StudentList* studentList, int start) {
   selectionSortRegistration(studentList, start + 1);
 }
 
-void list(StudentList* studentList) {
-  for (int i = 0; i < studentList->length; i++) {
-    Student student = studentList->data[i];
-    printf("Aluno: %s, Matrícula: %d, Média Final: %.2f\n", student.name, student.registration, student.finalAverage);
-  }
-}
-
 Student findByRegistration(StudentList* studentList, int registration, int low, int hight) {
   if (low > hight) {
     Student notFound;
@@ -155,7 +158,8 @@ Student findByRegistration(StudentList* studentList, int registration, int low, 
 
 int main() {
   StudentList* studentList = createStudentList(10);
-
+  
+  // * INSERIR
   insert(studentList, 4, "Maria Alencar", 10);
   insert(studentList, 2, "Pereira Mathias", 1.56);
   insert(studentList, 6, "Minato Usumaki", 5.78);
@@ -163,23 +167,25 @@ int main() {
   insert(studentList, 5, "Minouri", 2.91);
   insert(studentList, 3, "Melissa", 1.34);
 
+  // * LISTAR
   // list(studentList);
 
+  // * REMOVER
   // removeStudent(studentList, 1);
   // list(studentList);
 
   // selectionSortFinalAverage(studentList, 0);
-  selectionSortRegistration(studentList, 0);
+  // selectionSortRegistration(studentList, 0);
   // list(studentList);
 
-  int registrationToFind = 0;
-  Student student = findByRegistration(studentList, registrationToFind, 0, studentList->length - 1);
+  // int registrationToFind = 0;
+  // Student student = findByRegistration(studentList, registrationToFind, 0, studentList->length - 1);
 
-  if (student.registration != -1) {
-    printf("Aluno encontrado: %s, Matrícula: %d, Média Final: %.2f\n", student.name, student.registration, student.finalAverage);
-  } else {
-    printf("Aluno com matrícula %d não encontrado.\n", registrationToFind);
-  }
+  // if (student.registration != -1) {
+  //   printf("Aluno encontrado: %s, Matrícula: %d, Média Final: %.2f\n", student.name, student.registration, student.finalAverage);
+  // } else {
+  //   printf("Aluno com matrícula %d não encontrado.\n", registrationToFind);
+  // }
 
   free(studentList->data);
   free(studentList);
